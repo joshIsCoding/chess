@@ -37,5 +37,4 @@ class Board
       @rows[row][col] = value
    end
 
-
 end
