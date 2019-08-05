@@ -34,6 +34,17 @@ module Slideable
       dir_moves
       
    end
+
+   def move_dirs
+      horizontal_moves = horizontal_dirs
+      diagonal_moves = diagonal_dirs
+      horizontal_moves.merge(diagonal_moves)
+   end
+
+   def moves
+      move_dirs.values.inject([]) { |new_dir, move_array| new_dir + move_array }
+   end
+
       
 
 
