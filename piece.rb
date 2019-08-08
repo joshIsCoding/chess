@@ -1,9 +1,8 @@
 require_relative "slideable.rb"
 require_relative "stepable.rb"
 class Piece
-   include Stepable
-   attr_reader :pos
-   def initialize(pos)
-      @pos = pos
+   attr_reader :pos, :board, :color
+   def initialize(color, pos, board)
+      @color, @pos, @board = color, pos, board
    end
 end
