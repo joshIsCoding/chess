@@ -15,11 +15,17 @@ class Board
       
       self[start_pos] = nil
       self[end_pos] = target_piece
+      target_piece.pos = end_pos
+      
    end
 
    def set_pieces
       (0...8).each do |col|
-         [0,1,6,7].each { |row| add_piece(Piece.new, [col, row])}
+         [0,1,6,7].each do |row| 
+            piece_pos = [col, row]
+            #refactor - move piece initialisation into #add_piece
+            add_piece(Piece.new(:white, piece_pos, self), piece_pos)
+         end
       end
    end
 
