@@ -13,4 +13,12 @@ class Piece
       end
    end
 
+   def symbol
+      :piece
+   end
+
+   def empty?
+      symbol == :null ? true : false
+   end
+
 end
