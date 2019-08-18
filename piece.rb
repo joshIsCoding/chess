@@ -13,6 +13,15 @@ class Piece
       end
    end
 
+   def valid_moves
+      begin
+         return moves
+      rescue
+         return [[4,4],[4,3],[4,2]]
+      end
+   end
+      
+
    def symbol
       :piece
    end
