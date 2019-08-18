@@ -1,4 +1,7 @@
+require 'singleton'
+require 'byebug'
 require_relative "piece.rb"
+require_relative "nullpiece.rb"
 
 class Board
    attr_reader :rows
@@ -11,26 +14,40 @@ class Board
 
    def move_piece(start_pos, end_pos)
       target_piece = self[start_pos]
-      raise ArgumentError.new("There is no piece at this start position.") if target_piece.nil?
+      raise ArgumentError.new("There is no piece at this start position.") if target_piece.empty?
       
-      self[start_pos] = nil
+      self[start_pos] = Nullpiece.instance
       self[end_pos] = target_piece
       target_piece.pos = end_pos
       
    end
 
    def set_pieces
-      (0...8).each do |col|
-         [0,1,6,7].each do |row| 
+      (0...8).each do |row|
+         (0...8).each do |col| 
             piece_pos = [col, row]
-            #refactor - move piece initialisation into #add_piece
-            add_piece(Piece.new(:white, piece_pos, self), piece_pos)
+            add_piece(:piece, piece_pos)
          end
       end
    end
 
    def add_piece(piece, pos)
-      self[pos] = piece
+      if [0,1].include?(pos.last)
+         color = :white
+      elsif [6,7].include?(pos.last)
+         color = :black
+      else
+         color = :nil
+      end
+
+      if color == :nil
+         self[pos] = Nullpiece.instance
+      else
+         #debugger 
+         self[pos] = Piece.new(color, pos, self)
+         
+      end
+         
    end
 
    def [](pos)
