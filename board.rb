@@ -2,6 +2,7 @@ require 'singleton'
 require 'byebug'
 require_relative "piece.rb"
 require_relative "bishop.rb"
+require_relative "queen.rb"
 require_relative "nullpiece.rb"
 
 class Board
@@ -45,6 +46,8 @@ class Board
       case piece
       when :bishop
          self[pos] = Bishop.new(color, pos, self)
+      when :queen
+         self[pos] = Queen.new(color, pos, self)
       else
          self[pos] = Piece.new(color, pos, self)
       end
