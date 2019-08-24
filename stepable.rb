@@ -4,7 +4,7 @@ module Stepable
       move_diffs.each do |diff|
          new_move = [self.pos[0] + diff[0], self.pos[1] + diff[1]]
          next if new_move.min < 0 || new_move.max >= 8
-         # next if self.board[new_move].color == self.color
+         next if self.board[new_move].color == self.color
          moves << new_move
       end
       moves
