@@ -5,6 +5,7 @@ require_relative "bishop.rb"
 require_relative "queen.rb"
 require_relative "rook.rb"
 require_relative "king.rb"
+require_relative "knight.rb"
 require_relative "nullpiece.rb"
 
 class Board
@@ -54,7 +55,10 @@ class Board
          self[pos] = Rook.new(color, pos, self)
       when :king
          self[pos] = King.new(color, pos, self)
+      when :knight
+         self[pos] = Knight.new(color, pos, self)
       else
+         #refactor for pawn pieces
          self[pos] = Piece.new(color, pos, self)
       end
          
