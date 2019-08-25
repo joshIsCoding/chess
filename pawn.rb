@@ -18,11 +18,7 @@ class Pawn < Piece
    private
 
    def forward_dir 
-      if @color == :white
-         return 1 
-      else
-         return -1
-      end
+      @color == :white ? 1 : -1
    end
 
    def forward_steps(count)
