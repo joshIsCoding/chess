@@ -22,7 +22,8 @@ class Pawn < Piece
    end
 
    def forward_steps(count)
-      [@pos.first, @pos.last + count]
+      x, y = @pos
+      [x, y + count]
    end
 
    def at_start_row?
