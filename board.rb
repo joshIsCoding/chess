@@ -1,6 +1,7 @@
 require 'singleton'
 require 'byebug'
 require_relative "piece.rb"
+require_relative "pawn.rb"
 require_relative "bishop.rb"
 require_relative "queen.rb"
 require_relative "rook.rb"
@@ -58,8 +59,7 @@ class Board
       when :knight
          self[pos] = Knight.new(color, pos, self)
       else
-         #refactor for pawn pieces
-         self[pos] = Piece.new(color, pos, self)
+         self[pos] = Pawn.new(color, pos, self)
       end
          
    end
