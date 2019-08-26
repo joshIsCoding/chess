@@ -2,13 +2,15 @@
 class Pawn < Piece
 
    def moves
-      if at_start_row?
-         return [forward_steps(1), forward_steps(2)].filter{ |move| @board[move].empty? }
-      elsif @board[forward_steps(1)].empty?
-         return [forward_steps(1)]
-      else
-         return []
+      moves = []
+      [1,2].each do |step|
+         break if !at_start_row? && step == 2
+         move = forward_steps(step)
+         
+         break if !@board[move].empty? 
+         moves << move if @board.valid_pos?(move)
       end
+      return moves
    end
 
    def symbol
@@ -23,7 +25,7 @@ class Pawn < Piece
 
    def forward_steps(count)
       x, y = @pos
-      [x, y + count]
+      [x, y + count * forward_dir]
    end
 
    def at_start_row?
