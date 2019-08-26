@@ -36,6 +36,7 @@ class Board
             add_piece(piece, piece_pos)
          end
       end
+      self[[0,0]] = Pawn.new(:black, [0,0], self)
    end
 
    def add_piece(piece, pos)
@@ -61,6 +62,8 @@ class Board
       else
          self[pos] = Pawn.new(color, pos, self)
       end
+
+
          
    end
 
@@ -73,5 +76,10 @@ class Board
       col, row = pos
       @rows[row][col] = value
    end
+
+   def valid_pos?(pos)
+      pos.min >= 0 || pos.max < 8
+   end
+
 
 end
