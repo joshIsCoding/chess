@@ -11,7 +11,7 @@ require_relative "nullpiece.rb"
 
 class Board
    attr_reader :rows
-   LAYOUT = [:rook, :knight, :bishop, :queen, :king, :bishop, :knight, :rook ]
+   LAYOUT = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook ]
    
    def initialize
       @rows = Array.new(8) { Array.new(8, Nullpiece.instance) }
@@ -21,7 +21,7 @@ class Board
    def move_piece(start_pos, end_pos)
       target_piece = self[start_pos]
       raise ArgumentError.new("There is no piece at this start position.") if target_piece.empty?
-      raise ArgumentError.new("The #{target_piece.symbol} cannot move to square #{end_pos.first} #{end_pos.last}") if !target_piece.valid_moves.include?(end_pos)
+      raise ArgumentError.new("The #{target_piece.symbol} cannot move to square #{end_pos.first} #{end_pos.last}")  unless target_piece.valid_moves.include?(end_pos)
       self[start_pos] = Nullpiece.instance
       self[end_pos] = target_piece
       target_piece.pos = end_pos
@@ -29,14 +29,14 @@ class Board
    end
 
    def set_pieces
-      [0, 1, 6, 7].each do |row|
-         (0...8).each do |col| 
-            piece = row == 0 || row == 7 ? LAYOUT[col] : :pawn
-            piece_pos = [col, row]
+      [0, 1, 6, 7].each do |y|
+         (0...8).each do |x| 
+            piece = y == 0 || y == 7 ? LAYOUT[x] : Pawn
+            piece_pos = [x, y]
             add_piece(piece, piece_pos)
          end
       end
-      self[[0,0]] = Pawn.new(:black, [0,0], self)
+      self[[0,0]] = Queen.new(:black, [0,0], self)
    end
 
    def add_piece(piece, pos)
@@ -44,27 +44,10 @@ class Board
          color = :white
       elsif [6,7].include?(pos.last)
          color = :black
-      else
-         color = :nil
       end
 
-      case piece
-      when :bishop
-         self[pos] = Bishop.new(color, pos, self)
-      when :queen
-         self[pos] = Queen.new(color, pos, self)
-      when :rook
-         self[pos] = Rook.new(color, pos, self)
-      when :king
-         self[pos] = King.new(color, pos, self)
-      when :knight
-         self[pos] = Knight.new(color, pos, self)
-      else
-         self[pos] = Pawn.new(color, pos, self)
-      end
+      self[pos] = piece.new(color, pos, self) 
 
-
-         
    end
 
    def [](pos)
@@ -77,8 +60,12 @@ class Board
       @rows[row][col] = value
    end
 
+   def empty?(pos)
+      self[pos].empty?
+   end
+
    def valid_pos?(pos)
-      pos.min >= 0 || pos.max < 8
+      pos.min >= 0 && pos.max < 8
    end
 
 
