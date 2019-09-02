@@ -7,6 +7,7 @@ class Nullpiece < Piece
    end
 
    def moves
+      []
    end
 
    def symbol
