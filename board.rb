@@ -36,7 +36,6 @@ class Board
             add_piece(piece, piece_pos)
          end
       end
-      self[[0,0]] = Queen.new(:black, [0,0], self)
    end
 
    def add_piece(piece, pos)
