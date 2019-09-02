@@ -60,13 +60,12 @@ class Board
       @rows[row][col] = value
    end
 
-   def empty?(pos)
-      self[pos].empty?
-   end
-
    def valid_pos?(pos)
       pos.min >= 0 && pos.max < 8
    end
 
+   def empty?(pos)
+      self[pos].empty?
+   end
 
 end

@@ -27,7 +27,7 @@ module Slideable
       (1...8).each do |increment|
             new_move = [self.pos[0] + dir[0] * increment,  self.pos[1] + dir[1] * increment ]
             break if !self.board.valid_pos?(new_move)
-            break if !self.board[new_move].empty?
+            break if !self.board.empty?(new_move)
             dir_moves.push(new_move)
             
          end
