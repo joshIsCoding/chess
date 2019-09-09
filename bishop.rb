@@ -7,7 +7,7 @@ class Bishop < Piece
    end
 
    def symbol
-      :B
+      color == :white ? '♝' : '♗'
    end
 
 end

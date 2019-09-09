@@ -3,7 +3,7 @@ class King < Piece
    include Stepable
 
    def symbol
-      :K
+      color == :white ? '♚' : '♔'
    end
 
 end

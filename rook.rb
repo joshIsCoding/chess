@@ -7,7 +7,7 @@ class Rook < Piece
    end
 
    def symbol
-      :R
+      color == :white ? '♜' : '♖'
    end
 
 end
