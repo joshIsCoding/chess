@@ -40,9 +40,9 @@ class Board
 
    def add_piece(piece, pos)
       if [0,1].include?(pos.last)
-         color = :white
-      elsif [6,7].include?(pos.last)
          color = :black
+      elsif [6,7].include?(pos.last)
+         color = :white
       end
 
       self[pos] = piece.new(color, pos, self) 
