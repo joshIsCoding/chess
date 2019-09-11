@@ -9,6 +9,7 @@ class Display
    def initialize(board)
       @cursor = Cursor.new([0,0], board)
       @board = board
+      @spacer = "   "
    end
 
    def render
@@ -23,13 +24,15 @@ class Display
    end
 
    def render_alphabet_labels
+      alphabet_labels = " " + @spacer
+      COLUMNS.each { |letter| alphabet_labels << letter + @spacer }
+      puts alphabet_labels
    end
 
    def render_row(row_array, row_num)
-      spacer = "   "
-      row_string = ROWS[row_num].to_s + spacer
+      row_string = ROWS[row_num].to_s + @spacer
       row_array.each do |piece| 
-         piece_string = piece.symbol + spacer
+         piece_string = piece.symbol + @spacer
          row_string << piece_string
       end
       row_string << ROWS[row_num].to_s
