@@ -23,7 +23,7 @@ class Piece
       
 
    def symbol
-      :piece
+      raise NotImplementedError
    end
 
    def empty?
