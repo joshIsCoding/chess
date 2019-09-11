@@ -11,7 +11,7 @@ class Nullpiece < Piece
    end
 
    def symbol
-      :null
+      " "
    end
 
 end
