@@ -32,7 +32,7 @@ class Board
       [0, 1, 6, 7].each do |y|
          (0...8).each do |x| 
             piece = y == 0 || y == 7 ? LAYOUT[x] : Pawn
-            piece_pos = [x, y]
+            piece_pos = [y, x]
             add_piece(piece, piece_pos)
          end
       end
