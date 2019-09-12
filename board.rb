@@ -29,19 +29,19 @@ class Board
    end
 
    def set_pieces
-      [0, 1, 6, 7].each do |y|
-         (0...8).each do |x| 
-            piece = y == 0 || y == 7 ? LAYOUT[x] : Pawn
-            piece_pos = [y, x]
+      [0, 1, 6, 7].each do |row|
+         (0...8).each do |col| 
+            piece = row == 0 || row == 7 ? LAYOUT[col] : Pawn
+            piece_pos = [row, col]
             add_piece(piece, piece_pos)
          end
       end
    end
 
    def add_piece(piece, pos)
-      if [0,1].include?(pos.last)
+      if [0,1].include?(pos.first)
          color = :black
-      elsif [6,7].include?(pos.last)
+      elsif [6,7].include?(pos.first)
          color = :white
       end
 
@@ -50,12 +50,12 @@ class Board
    end
 
    def [](pos)
-      col, row = pos 
+      row, col = pos 
       @rows[row][col]
    end
 
    def []=(pos, value)
-      col, row = pos
+      row, col = pos
       @rows[row][col] = value
    end
 
