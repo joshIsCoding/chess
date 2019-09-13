@@ -12,15 +12,15 @@ class Pawn < Piece
    private
 
    def forward_dir 
-      @color == :white ? 1 : -1
+      @color == :white ? -1 : 1
    end
 
    def forward_steps
-      x, y = @pos
+      row, col = @pos
       steps = []
       [1,2].each do |step|
          break if !at_start_row? && step == 2
-         move = [x, y + step * forward_dir]
+         move = [row + step * forward_dir, col]
          
          break unless @board.empty?(move)
          steps << move if @board.valid_pos?(move)
@@ -30,8 +30,8 @@ class Pawn < Piece
    end
 
    def side_attacks
-      x, y = @pos
-      side_attacks = [[x-1, y + forward_dir], [x+1, y + forward_dir]]
+      row, col = @pos
+      side_attacks = [[row + forward_dir, col-1], [row + forward_dir, col+1]]
       side_attacks.select do |move|
          next false unless @board.valid_pos?(move)
          next false if @board.empty?(move)
@@ -43,7 +43,7 @@ class Pawn < Piece
 
 
    def at_start_row?
-      (@color == :white && @pos.last == 1) || (@color == :black && @pos.last == 6)
+      (@color == :white && @pos.first == 6) || (@color == :black && @pos.first == 1)
    end
 
 end
