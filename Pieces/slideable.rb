@@ -25,10 +25,14 @@ module Slideable
    def grow_unblocked_moves_in_dir(dir)
       dir_moves = []
       (1...8).each do |increment|
-            new_move = [self.pos[0] + dir[0] * increment,  self.pos[1] + dir[1] * increment ]
-            break if !self.board.valid_pos?(new_move)
-            break if !self.board.empty?(new_move)
-            dir_moves.push(new_move)
+            new_move = [pos[0] + dir[0] * increment,  pos[1] + dir[1] * increment ]
+            break if !board.valid_pos?(new_move)
+            if board.empty?(new_move)
+               dir_moves.push(new_move) 
+            else 
+               dir_moves.push(new_move) if board[new_move].color != color
+               break
+            end            
             
          end
       dir_moves
