@@ -79,9 +79,10 @@ class Cursor
   def handle_key(key)
     case key
     when :return, :space
+      toggle_selected
       return @cursor_pos
     when :left, :right, :up, :down
-      update_pos(MOVES[key])
+      update_pos(MOVES[key]) unless selected
       nil
     when :ctrl_c
       Process.exit(0)
@@ -94,5 +95,9 @@ class Cursor
     y, x = cursor_pos
     new_pos = [y + dy, x + dx]
     @cursor_pos = new_pos if board.valid_pos?(new_pos)
+  end
+
+  def toggle_selected
+    @selected = selected ? false : true
   end
 end

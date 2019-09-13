@@ -58,7 +58,7 @@ class Display
 
    def color_values(pos)
       if pos == @cursor.cursor_pos && @cursor.selected
-         fg, bg = :white, :green
+         fg, bg = :white, :red
       elsif pos == @cursor.cursor_pos
          fg, bg = :black, :light_green
       elsif (pos.first + pos.last).even?
