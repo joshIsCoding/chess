@@ -29,25 +29,29 @@ class Board
    end
 
    def set_pieces
-      [0, 1, 6, 7].each do |row|
-         (0...8).each do |col| 
-            piece = row == 0 || row == 7 ? LAYOUT[col] : Pawn
-            piece_pos = [row, col]
-            add_piece(piece, piece_pos)
-         end
+      [0,7].each do |row|
+         fill_back_row(row)
+      end
+      [1,6].each do |row|
+         fill_pawn_row(row)
       end
    end
 
+   def fill_back_row(row)
+      color = row == 0 ? :black : :white 
+      LAYOUT.each_with_index { |piece, col| piece.new(color, [row, col], self) }
+   end
+
+   def fill_pawn_row(row)
+      color = row == 1 ? :black : :white
+      8.times { |col| Pawn.new(color, [row, col], self)}
+   end
+    
    def add_piece(piece, pos)
-      if [0,1].include?(pos.first)
-         color = :black
-      elsif [6,7].include?(pos.first)
-         color = :white
-      end
-
-      self[pos] = piece.new(color, pos, self) 
-
+      raise "Square already occupied" unless empty?(pos)
+      self[pos] = piece
    end
+
 
    def [](pos)
       row, col = pos 

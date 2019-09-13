@@ -14,4 +14,8 @@ class Nullpiece < Piece
       " "
    end
 
+   def empty?
+      true
+   end
+
 end

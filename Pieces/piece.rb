@@ -3,8 +3,8 @@ require_relative "stepable.rb"
 class Piece
    attr_reader :color, :pos, :board
    def initialize(color, pos, board)
-      @color, @board = color, board
-      @pos = pos
+      @color, @pos, @board = color, pos, board
+      board.add_piece(self, pos)
    end
 
    def pos=(new_pos)
@@ -27,7 +27,7 @@ class Piece
    end
 
    def empty?
-      symbol == :null ? true : false
+      false
    end
 
 end
