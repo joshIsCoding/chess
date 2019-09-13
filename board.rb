@@ -8,6 +8,7 @@ require_relative "Pieces/rook.rb"
 require_relative "Pieces/king.rb"
 require_relative "Pieces/knight.rb"
 require_relative "Pieces/nullpiece.rb"
+require_relative "display.rb"
 
 class Board
    attr_reader :rows
@@ -17,6 +18,19 @@ class Board
       @rows = Array.new(8) { Array.new(8, Nullpiece.instance) }
       set_pieces
    end
+
+   def test_check
+      display = Display.new(self)
+      display.render
+      sleep 1
+      move_piece([6,5],[5,5])
+      move_piece([1,4],[3,4])
+      move_piece([6,6],[4,6])
+      move_piece([0,3],[4,7])
+      display.render
+
+   end
+
 
    def move_piece(start_pos, end_pos)
       target_piece = self[start_pos]
@@ -79,6 +93,18 @@ class Board
    def pieces
       @rows.flatten.reject(&:empty?)
    end
+
+   def in_check?(color)
+      king_pos = find_king(color)
+      pieces.reject { |piece| piece.color == color }.any? do |opponent_piece|
+         opponent_piece.moves.include?(king_pos)
+      end
+   end
+
+   def checkmate?(color)
+      in_check?(color) && pieces.all? { |piece| piece.color == color && piece.valid_moves.empty? }
+   end
+
 
 
 end
