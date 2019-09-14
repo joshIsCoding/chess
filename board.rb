@@ -8,15 +8,14 @@ require_relative "Pieces/rook.rb"
 require_relative "Pieces/king.rb"
 require_relative "Pieces/knight.rb"
 require_relative "Pieces/nullpiece.rb"
-require_relative "display.rb"
 
 class Board
    attr_reader :rows
    LAYOUT = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook ]
    
-   def initialize
+   def initialize(empty_board = false)
       @rows = Array.new(8) { Array.new(8, Nullpiece.instance) }
-      set_pieces
+      set_pieces unless empty_board
    end
 
    def test_check
@@ -28,6 +27,8 @@ class Board
       move_piece([6,6],[4,6])
       move_piece([0,3],[4,7])
       display.render
+      puts in_check?(:white)
+      puts checkmate?(:white)
 
    end
 
@@ -92,6 +93,18 @@ class Board
 
    def pieces
       @rows.flatten.reject(&:empty?)
+   end
+
+   def dup
+      duped_board = Board.new(true)
+      rows.each do |row|
+         row.each do |original_piece|
+            next if original_piece.empty?
+            dup_class = original_piece.class
+            dup_class.new(original_piece.color, original_piece.pos, duped_board)
+         end
+      end
+      duped_board
    end
 
    def in_check?(color)
