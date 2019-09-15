@@ -14,11 +14,7 @@ class Piece
    end
 
    def valid_moves
-      begin
-         return moves
-      rescue
-         return [[4,4],[4,3],[4,2]]
-      end
+      moves.reject{ |move| move_into_check?(move)}
    end
       
 
