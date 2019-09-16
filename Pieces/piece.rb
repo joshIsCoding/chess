@@ -30,8 +30,8 @@ class Piece
 
    def move_into_check?(end_pos)
       dummy_board = board.dup
-      dummy_board.move_piece(pos, end_pos)
-      dummy_board.in_check?
+      dummy_board.move_piece!(pos, end_pos)
+      dummy_board.in_check?(dummy_board[end_pos].color)
    end
 
 end

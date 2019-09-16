@@ -37,9 +37,7 @@ class Board
       target_piece = self[start_pos]
       raise ArgumentError.new("There is no piece at this start position.") if target_piece.empty?
       raise ArgumentError.new("The #{target_piece.symbol} cannot move to square #{end_pos.first} #{end_pos.last}")  unless target_piece.valid_moves.include?(end_pos)
-      self[start_pos] = Nullpiece.instance
-      self[end_pos] = target_piece
-      target_piece.pos = end_pos
+      move_piece!(start_pos, end_pos)
       
    end
 
@@ -118,6 +116,16 @@ class Board
       in_check?(color) && pieces.all? { |piece| piece.color == color && piece.valid_moves.empty? }
    end
 
+   
+   def move_piece!(start_pos, end_pos)
+      target_piece = self[start_pos]
+      raise ArgumentError.new("This is not a valid move for this piece.") unless target_piece.moves.include?(end_pos)
+      self[start_pos] = Nullpiece.instance
+      
+      self[end_pos] = target_piece
+      target_piece.pos = end_pos
+      
+   end
 
 
 end
