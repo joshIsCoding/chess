@@ -1,21 +1,22 @@
 require_relative "board.rb"
 require_relative "cursor.rb"
 require "colorize"
-
+require "byebug"
 class Display
+   attr_reader :debug, :board, :cursor
    COLUMNS = ("a".."h").to_a.freeze
    ROWS = (1..8).to_a.reverse!.freeze
 
-   def initialize(board = Board.new)
+   def initialize(board = Board.new, debug = false)
       @cursor = Cursor.new([0,0], board)
       @board = board
+      @debug = debug
    end
 
    def test
-      @board = Board.new
-      while @board
+      while board
          self.render
-         @cursor.get_input
+         cursor.get_input
       end
    end
 
@@ -28,6 +29,14 @@ class Display
          puts
       end
       render_alphabet_labels
+      if debug
+         puts
+         curr_piece = board[cursor.cursor_pos]
+         opponent_color = curr_piece.color == :white ? :black : :white
+         puts "All moves #{curr_piece.moves.inspect}"
+         puts "Valid moves #{curr_piece.valid_moves.inspect}"
+         puts "Oponent in check: #{board.in_check?(opponent_color)}"
+      end
 
    end
 
