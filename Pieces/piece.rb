@@ -1,10 +1,11 @@
 require_relative "slideable.rb"
 require_relative "stepable.rb"
 class Piece
-   attr_reader :color, :pos, :board
+   attr_reader :color, :pos, :board, :selected
    def initialize(color, pos, board)
       @color, @pos, @board = color, pos, board
       board.add_piece(self, pos)
+      @selected = false
    end
 
    def pos=(new_pos)
@@ -24,6 +25,10 @@ class Piece
 
    def empty?
       false
+   end
+
+   def toggle_selected
+      @selected = !selected unless empty?
    end
 
    private

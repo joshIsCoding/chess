@@ -1,7 +1,3 @@
-require_relative "board.rb"
-require_relative "cursor.rb"
-require "colorize"
-require "byebug"
 class Display
    attr_reader :debug, :board, :cursor
    COLUMNS = ("a".."h").to_a.freeze
@@ -66,9 +62,9 @@ class Display
    end
 
    def color_values(pos)
-      if pos == @cursor.cursor_pos && @cursor.selected
+      if board[pos].selected
          fg, bg = :white, :red
-      elsif pos == @cursor.cursor_pos
+      elsif pos == cursor.cursor_pos
          fg, bg = :black, :light_green
       elsif (pos.first + pos.last).even?
          fg, bg = :white, :light_blue

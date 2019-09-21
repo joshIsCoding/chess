@@ -1,5 +1,10 @@
+require_relative "board.rb"
+require_relative "display.rb"
+require_relative "cursor.rb"
+require "colorize"
+
 class Game
-   def initialize(AI_player = false)
+   def initialize(ai_player = false)
       @board = Board.new
       @display = Display.new(@board, true)
 
@@ -9,9 +14,19 @@ class Game
    end
 
    def play
+      until gameover
+         @display.render
+         @current_player.make_move
+         switch_player
+      end
    end
 
-   
-   
+   def gameover
+      @board.checkmate?(:black) || @board.checkmate?(:white) 
+   end
+
+   def switch_player
+      @current_player = @current_player == @player_one ? @player_two : @player_one
+   end   
    
 end
