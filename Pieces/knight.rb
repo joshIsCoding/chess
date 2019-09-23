@@ -17,7 +17,7 @@ class Knight < Piece
 
 
    def symbol
-      color == :white ? '♞' : '♘'
+      '♞'.colorize(color)
    end
 
 end

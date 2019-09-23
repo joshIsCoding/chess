@@ -64,15 +64,15 @@ class Display
 
    def color_values(pos)
       if board[pos].selected
-         fg, bg = :white, :red
+         bg = :red
       elsif pos == cursor.cursor_pos
-         fg, bg = :black, :light_green
+         bg = :light_green
       elsif (pos.first + pos.last).even?
-         fg, bg = :white, :light_blue
+         bg = :light_blue
       else
-         fg, bg = :black, :light_yellow
+         bg = :light_yellow
       end
-      { :color => fg, :background => bg }
+      { :background => bg }
    end
 
 
