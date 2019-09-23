@@ -1,4 +1,5 @@
 class HumanPlayer
+   attr_reader :piece_color
    def initialize(piece_color, display)
       @piece_color, @display = piece_color, display
    end
@@ -10,7 +11,7 @@ class HumanPlayer
          until move.length == 2
             move << get_pos
          end
-         board.move_piece(*move)     
+         board.move_piece(piece_color, *move)     
          
       rescue ArgumentError => move_error
          puts move_error
@@ -18,7 +19,7 @@ class HumanPlayer
          retry
 
       ensure
-         board[move.last].toggle_selected     
+         board[move.last].toggle_selected if move.length > 0 
       end
    end
 

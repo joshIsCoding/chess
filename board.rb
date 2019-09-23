@@ -33,9 +33,10 @@ class Board
    end
 
 
-   def move_piece(start_pos, end_pos)
+   def move_piece(color, start_pos, end_pos)
       target_piece = self[start_pos]
       raise ArgumentError.new("There is no piece at this start position.") if target_piece.empty?
+      raise ArgumentError.new("You may only move #{color == :white ? "white" : "black"} pieces on your turn.") if target_piece.color != color
       raise ArgumentError.new("The #{target_piece.symbol} cannot move to square #{end_pos.first} #{end_pos.last}")  unless target_piece.valid_moves.include?(end_pos)
       move_piece!(start_pos, end_pos)
       
