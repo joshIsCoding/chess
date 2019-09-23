@@ -18,7 +18,7 @@ class Game
       until gameover
          @display.render
          @current_player.make_move(@board)
-         switch_player
+         swap_turn!
       end
    end
 
@@ -26,7 +26,7 @@ class Game
       @board.checkmate?(:black) || @board.checkmate?(:white) 
    end
 
-   def switch_player
+   def swap_turn!
       @current_player = @current_player == @player_one ? @player_two : @player_one
    end   
    
