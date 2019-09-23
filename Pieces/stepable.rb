@@ -13,8 +13,8 @@ module Stepable
       move_diffs = []
       (-1..1).each do |di|
          (-1..1).each do |dj|
-            next if dj == 0 && dj == 0
-            move_diffs << [dj, dj]
+            next if di == 0 && dj == 0
+            move_diffs << [di, dj]
          end
       end
       move_diffs
