@@ -14,9 +14,11 @@ class HumanPlayer
          
       rescue ArgumentError => move_error
          puts move_error
-         
+         move.each { |pos| board[pos].toggle_selected }    
          retry
-         
+
+      ensure
+         board[move.last].toggle_selected     
       end
    end
 
