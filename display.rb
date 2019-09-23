@@ -29,6 +29,7 @@ class Display
          puts
          curr_piece = board[cursor.cursor_pos]
          opponent_color = curr_piece.color == :white ? :black : :white
+         puts "Piece: #{curr_piece.color == :white ? "White" : "Black"} #{curr_piece.class}"
          puts "All moves #{curr_piece.moves.inspect}"
          puts "Valid moves #{curr_piece.valid_moves.inspect}"
          puts "Oponent in check: #{board.in_check?(opponent_color)}"
