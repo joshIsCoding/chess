@@ -26,6 +26,10 @@ class Game
       @board.checkmate?(:black) || @board.checkmate?(:white) 
    end
 
+   def notify_players
+      player_ref = @current_player == @player_one ? { :player => "One", :color => "white" }
+      puts "Player #{player_ref[:player]}, it's your turn to move the #{player_ref[:color]} pieces."
+
    def swap_turn!
       @current_player = @current_player == @player_one ? @player_two : @player_one
    end   
