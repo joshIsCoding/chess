@@ -17,6 +17,8 @@ class Game
    def play
       until gameover
          @display.render
+         notify_players
+         sleep 1
          @current_player.make_move(@board)
          swap_turn!
       end
@@ -27,8 +29,10 @@ class Game
    end
 
    def notify_players
-      player_ref = @current_player == @player_one ? { :player => "One", :color => "white" }
+      player_ref = @current_player == @player_one ? { :player => "One", :color => "white" } : { :player => "Two", :color => "black" }
       puts "Player #{player_ref[:player]}, it's your turn to move the #{player_ref[:color]} pieces."
+
+   end
 
    def swap_turn!
       @current_player = @current_player == @player_one ? @player_two : @player_one
