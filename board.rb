@@ -114,7 +114,9 @@ class Board
    end
 
    def checkmate?(color)
-      in_check?(color) && pieces.all? { |piece| piece.color == color && piece.valid_moves.empty? }
+      in_check?(color) && pieces.select{ |p| p.color == color }.all? do |player_piece| 
+         player_piece.valid_moves.empty? 
+      end
    end
 
    
@@ -125,7 +127,6 @@ class Board
       
       self[end_pos] = target_piece
       target_piece.pos = end_pos
-      
    end
 
 
