@@ -18,13 +18,14 @@ class Game
       until gameover
          @display.render
          notify_players
-         sleep 1
          @current_player.make_move(@board)
          swap_turn!
       end
       winner = @board.checkmate?(:black) ? @player_one : @player_two
       gameover_message(winner)
    end
+
+   private
 
    def gameover
       @board.checkmate?(:black) || @board.checkmate?(:white) 
@@ -44,6 +45,7 @@ class Game
    
 end
 
-
-new_game = Game.new
-new_game.play
+if $PROGRAM_NAME == __FILE__
+   new_game = Game.new
+   new_game.play
+end
