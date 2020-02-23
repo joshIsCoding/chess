@@ -18,21 +18,6 @@ class Board
       set_pieces unless empty_board
    end
 
-   def test_check
-      display = Display.new(self)
-      display.render
-      sleep 1
-      move_piece([6,5],[5,5])
-      move_piece([1,4],[3,4])
-      move_piece([6,6],[4,6])
-      move_piece([0,3],[4,7])
-      display.render
-      puts in_check?(:white)
-      puts checkmate?(:white)
-
-   end
-
-
    def move_piece(color, start_pos, end_pos)
       target_piece = self[start_pos]
       raise ArgumentError.new("There is no piece at this start position.") if target_piece.empty?
@@ -40,25 +25,6 @@ class Board
       raise ArgumentError.new("The #{target_piece.symbol} cannot move to square #{end_pos.first} #{end_pos.last}")  unless target_piece.valid_moves.include?(end_pos)
       move_piece!(start_pos, end_pos)
       
-   end
-
-   def set_pieces
-      [0,7].each do |row|
-         fill_back_row(row)
-      end
-      [1,6].each do |row|
-         fill_pawn_row(row)
-      end
-   end
-
-   def fill_back_row(row)
-      color = row == 0 ? :black : :white 
-      LAYOUT.each_with_index { |piece, col| piece.new(color, [row, col], self) }
-   end
-
-   def fill_pawn_row(row)
-      color = row == 1 ? :black : :white
-      8.times { |col| Pawn.new(color, [row, col], self)}
    end
     
    def add_piece(piece, pos)
@@ -129,5 +95,24 @@ class Board
       target_piece.pos = end_pos
    end
 
+   private
 
+   def fill_back_row(row)
+      color = row == 0 ? :black : :white 
+      LAYOUT.each_with_index { |piece, col| piece.new(color, [row, col], self) }
+   end
+
+   def fill_pawn_row(row)
+      color = row == 1 ? :black : :white
+      8.times { |col| Pawn.new(color, [row, col], self)}
+   end
+
+   def set_pieces
+      [0,7].each do |row|
+         fill_back_row(row)
+      end
+      [1,6].each do |row|
+         fill_pawn_row(row)
+      end
+   end
 end
