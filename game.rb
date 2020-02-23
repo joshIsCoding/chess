@@ -5,9 +5,9 @@ require_relative "humanplayer.rb"
 require "colorize"
 
 class Game
-   def initialize(ai_player = false)
+   def initialize(ai_player = false, debug_mode = false)
       @board = Board.new
-      @display = Display.new(@board, true)
+      @display = Display.new(@board, debug_mode)
 
       @player_one = HumanPlayer.new(:white, @display)
       @player_two = ai_player ? AiPlayer.new(:black) : HumanPlayer.new(:black, @display)
@@ -22,6 +22,8 @@ class Game
          @current_player.make_move(@board)
          swap_turn!
       end
+      winner = @board.checkmate?(:black) ? @player_one : @player_two
+      gameover_message(winner)
    end
 
    def gameover
@@ -29,13 +31,19 @@ class Game
    end
 
    def notify_players
-      player_ref = @current_player == @player_one ? { :player => "One", :color => "white" } : { :player => "Two", :color => "black" }
-      puts "Player #{player_ref[:player]}, it's your turn to move the #{player_ref[:color]} pieces."
-
+      puts "Player #{@current_player.player_no}, it's your turn to move the #{@current_player.piece_color.to_s} pieces."
    end
 
    def swap_turn!
       @current_player = @current_player == @player_one ? @player_two : @player_one
-   end   
+   end
+   
+   def gameover_message(winner)
+      puts "Checkmate! Congratulations, Player #{winner.player_no}, you win!"
+   end
    
 end
+
+
+new_game = Game.new
+new_game.play
