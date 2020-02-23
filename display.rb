@@ -9,13 +9,6 @@ class Display
       @debug = debug
    end
 
-   def test
-      while board
-         self.render
-         cursor.get_input
-      end
-   end
-
    def render
       system("clear")
       render_alphabet_labels
@@ -34,8 +27,9 @@ class Display
          puts "Valid moves #{curr_piece.valid_moves.inspect}"
          puts "Oponent in check: #{board.in_check?(opponent_color)}"
       end
-
    end
+
+   private
 
    def render_alphabet_labels
       alphabet_labels = "  "
@@ -74,8 +68,4 @@ class Display
       end
       { :background => bg }
    end
-
-
-
-
 end
