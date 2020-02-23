@@ -1,7 +1,8 @@
 class HumanPlayer
-   attr_reader :piece_color
+   attr_reader :piece_color, :player_no
    def initialize(piece_color, display)
       @piece_color, @display = piece_color, display
+      @player_no = @piece_color == :white ? "One" : "Two"
    end
 
    def make_move(board)
